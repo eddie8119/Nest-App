@@ -5,7 +5,7 @@ import { UsersService } from './users.service';
 import { User } from './user.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User])], //建立該儲存庫
+  imports: [TypeOrmModule.forFeature([User])], //建立該儲存庫
   controllers: [UsersController],
   providers: [UsersService],
 })

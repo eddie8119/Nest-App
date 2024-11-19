@@ -1,14 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class User {
-  //注意這取名規範
+export class Report {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
+  price: string;
 }
