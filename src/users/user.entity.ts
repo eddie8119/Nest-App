@@ -13,4 +13,8 @@ export class User {
 
   @Column()
   password: string;
+
+  // hook的用法
+  // @AfterInsert()
+  // logInsert(){}
 }

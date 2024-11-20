@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { IsEmail, IsStrongPassword } from 'class-validator';
 
 @Injectable()
 export class UsersService {
@@ -12,9 +11,12 @@ export class UsersService {
   //repo: Repository<User> 作為服務的私有屬性，可以直接使用 repo 來操作 User 資料表
   //repo 為Repository處理User的實例
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
-  
+
   create(email: string, password: string) {
     const user = this.repo.create({ email, password });
     return this.repo.save(user);
+    //直接save物件 而不是實例:
+    //也可以在這裡直接存 但就無法經過entity的validation
+    //no hooks get executed
   }
 }
