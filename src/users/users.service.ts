@@ -19,4 +19,25 @@ export class UsersService {
     //也可以在這裡直接存 但就無法經過entity的validation
     //no hooks get executed
   }
+
+  findOne(id: number) {
+    return this.repo.findOne(id);
+  }
+  // findOne: 回傳 one record or null
+  // find: 回傳 return an array 匹配的所有不同記錄
+  find(email: string) {
+    return this.repo.find({ email });
+  }
+
+  async update(id: number, attrs: Partial<User>) {
+    // 技巧: attrs: Partial 部分屬性
+    const user = await this.findOne(id);
+    if (!user) throw new Error('user not found');
+    Object.assign(user, attrs);
+    return this.repo.save(user);
+  }
+
+  remove() {
+    return;
+  }
 }
