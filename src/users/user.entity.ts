@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 // @Entity() 裝飾器是 TypeORM 進行 ORM 映射的基礎，將類別與資料庫結構對應起來。
 // 類別映射到資料庫中的表，可以以物件導向的方式操作資料庫
@@ -12,6 +13,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   // hook的用法

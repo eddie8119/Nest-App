@@ -8,6 +8,8 @@ import {
   Query,
   Delete,
   NotFoundException,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user-dto';
 import { UpdateUserDto } from './dtos/update-user-dto';
@@ -23,6 +25,9 @@ export class UsersController {
     this.usersService.create(email, password);
   }
 
+  // 將類別物件 序列化為適合回傳給用戶端的格式，尤其是涉及資料的安全性
+  // ClassSerializerInterceptor 啟用時，User 類別會自動過濾 @Exclude 標記的屬性
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.usersService.findOne(parseInt(id));
