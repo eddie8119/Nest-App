@@ -8,6 +8,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
 
+//抽離簡化
+export function Serialize(dto: any) {
+  return UseInterceptors(new SerializeInterceptor(dto));
+}
+
 //implements:
 // NestInterceptor 是 NestJS 的攔截器標準介面，通常用來改變控制器方法的輸入或輸出。
 // 須實現 NestInterceptor 介面定義的所有方法，這裡是 intercept 方法
