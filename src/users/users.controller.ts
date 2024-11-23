@@ -15,6 +15,7 @@ import { CreateUserDto } from './dtos/create-user-dto';
 import { UpdateUserDto } from './dtos/update-user-dto';
 import { UsersService } from './users.service';
 import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
+import { UserDto } from '../users/dtos/user-dto';
 
 @Controller('auth')
 export class UsersController {
@@ -29,7 +30,7 @@ export class UsersController {
   // ClassSerializerInterceptor:
   // 將類別物件 序列化為適合回傳給用戶端的格式，尤其是涉及資料的安全性
   // ClassSerializerInterceptor 啟用時，User 類別會自動過濾 @Exclude 標記的屬性
-  @UseInterceptors(SerializeInterceptor)
+  @UseInterceptors(new SerializeInterceptor(UserDto))
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.usersService.findOne(parseInt(id));
